@@ -12,5 +12,15 @@
     "nodemailer": "^6.9.1",
     "react-router-dom": "^6.10.0",
     "recharts": "^2.5.0"
-  }
+  },
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "name": "efko-backend",
+  "version": "1.0.0",
+  "main": "server.js",
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }

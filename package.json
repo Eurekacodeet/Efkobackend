@@ -1,26 +1,24 @@
 {
+  "name": "efko-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "cloudinary": "^1.36.2",
+    "cloudinary": "^1.36.4",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "imap": "^0.8.19",
     "mailparser": "^3.6.4",
-    "mongoose": "^7.0.5",
+    "mongoose": "^7.1.0",
     "multer": "^1.4.5-lts.1",
     "multer-storage-cloudinary": "^4.0.0",
-    "nodemailer": "^6.9.1",
-    "react-router-dom": "^6.10.0",
-    "recharts": "^2.5.0"
-  },
-  "scripts": {
-    "start": "nodemon server.js"
-  },
-  "name": "efko-backend",
-  "version": "1.0.0",
-  "main": "server.js",
-  "devDependencies": {},
-  "author": "",
-  "license": "ISC",
-  "description": ""
+    "nodemailer": "^6.9.1"
+  }
 }

@@ -4,18 +4,18 @@ const Blog = require('../model/blogModel');
 exports.createBlog = async (req, res) => {
   try {
     const { title, description, category } = req.body;
-    console.log("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLM")
+    //console.log("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLM")
     const imageSrc = req.file ? req.file.path : undefined; // add this line to get the path of the uploaded image file
-    console.log("qwertyuiop")
+    //console.log("qwertyuiop")
 
     const newBlog = new Blog({
       title, description, category, imageSrc
     });
-    console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+    //console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
 
     await newBlog.save();
-    console.log("1111111111111111111111111111111111111")
-    console.log(newBlog)
+    //console.log("1111111111111111111111111111111111111")
+    //console.log(newBlog)
 
     res.status(201).json(newBlog);
   } catch (error) {
@@ -28,9 +28,9 @@ exports.createBlog = async (req, res) => {
 exports.updateBlogById = async (req, res) => {
   try {
     const { title, description, category } = req.body;
-    console.log(title, description, category);
+    //console.log(title, description, category);
     const imageSrc = req.file ? req.file.path : undefined;
-    console.log(imageSrc);
+    //console.log(imageSrc);
     const newBlog = await Blog.findByIdAndUpdate(
       req.params.id,
       { title, description, category, imageSrc },

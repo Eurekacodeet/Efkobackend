@@ -11,7 +11,7 @@ projectDescription,
 coverImage: req.file.path, // Save file path to coverImage field
 content:parsedData
 });
-console.log(project);
+//console.log(project);
 await project.save();
 res.status(201).json(project);
 } catch (error) {
@@ -49,12 +49,12 @@ res.status(500).json({ message: 'Server error' });
 exports.updateProjectById = async (req, res) => {
 try {
 const { projectName,projectDescription, content } = req.body;
-console.log(req.body)
+//console.log(req.body)
 const parsedData=JSON.parse(content)
 
 coverImage = req.file ? req.file.path : undefined;
 const updateData = { projectName,projectDescription, content:parsedData,coverImage };
-console.log(updateData);
+//console.log(updateData);
 // If a new file is uploaded, update the coverImage field
 
 

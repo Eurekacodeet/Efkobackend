@@ -28,7 +28,7 @@ imap.connect();
 
 // event handlers for imap connection
 imap.once('ready', () => {
-  console.log('IMAP connection ready');
+  //console.log('IMAP connection ready');
 });
 
 imap.once('error', (error) => {
@@ -36,7 +36,7 @@ imap.once('error', (error) => {
 });
 
 imap.once('end', () => {
-  console.log('IMAP connection ended');
+  //console.log('IMAP connection ended');
 });
 
 // function for sending an email
@@ -55,7 +55,7 @@ const sendEmail = (req, res) => {
       console.error(error);
       res.status(500).json({ error: 'Failed to send email' });
     } else {
-      console.log(`Email sent: ${info.response}`);
+      //console.log(`Email sent: ${info.response}`);
       res.json({ message: 'Email sent successfully' });
     }
   });
@@ -66,7 +66,7 @@ const Email = require('../model/emailModel');
 const sendEmailFromClient = async (req, res) => {
   try {
     const { from, subject, text, fullName, phoneNumber } = req.body;
-    console.log(req.body);
+    //console.log(req.body);
 
     // Create a new email document
     const email = new Email({ from, subject, text, fullName, phoneNumber });
@@ -99,7 +99,7 @@ const sendAutoResponse = async (to, fullName) => {
     // Send the email
     await transporter.sendMail(mailOptions);
 
-    console.log('Auto-response email sent successfully');
+    //console.log('Auto-response email sent successfully');
   } catch (error) {
     console.error(error);
   }
@@ -207,7 +207,7 @@ const viewEmails = async (req, res) => {
 //       });
 
 //       fetch.on('end', () => {
-//         console.log('Emails fetched successfully');
+//         //console.log('Emails fetched successfully');
 //         res.json(emailList);
 //       });
 //     });
@@ -256,7 +256,7 @@ const fetchSentEmails = () => {
   
           fetch.on('end', () => {
             resolve(sentEmails);
-            console.log("Emails fetched successfully")
+            //console.log("Emails fetched successfully")
           });
         });
       });

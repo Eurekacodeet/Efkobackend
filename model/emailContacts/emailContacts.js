@@ -28,7 +28,7 @@ imap.connect();
 
 // event handlers for imap connection
 imap.once('ready', () => {
-  console.log('IMAP connection ready');
+  //console.log('IMAP connection ready');
 
   // open inbox mailbox
   imap.openBox('INBOX', true, (error, mailbox) => {
@@ -53,9 +53,9 @@ imap.once('ready', () => {
             const parsed = await simpleParser(stream);
 
             // log email details
-            console.log(`From: ${parsed.from.text}`);
-            console.log(`Subject: ${parsed.subject}`);
-            console.log(`Text: ${parsed.text}`);
+            //console.log(`From: ${parsed.from.text}`);
+            //console.log(`Subject: ${parsed.subject}`);
+            //console.log(`Text: ${parsed.text}`);
 
             // send a reply email
             const mailOptions = {
@@ -69,7 +69,7 @@ imap.once('ready', () => {
               if (error) {
                 console.error(error);
               } else {
-                console.log(`Reply email sent: ${info.response}`);
+                //console.log(`Reply email sent: ${info.response}`);
               }
             });
           });
@@ -84,7 +84,7 @@ imap.once('error', (error) => {
 });
 
 imap.once('end', () => {
-  console.log('IMAP connection ended');
+  //console.log('IMAP connection ended');
 });
 
 // function for sending an email
@@ -100,7 +100,7 @@ const sendEmail = (to, subject, text) => {
     if (error) {
       console.error(error);
     } else {
-      console.log(`Email sent: ${info.response}`);
+      //console.log(`Email sent: ${info.response}`);
     }
   });
 };

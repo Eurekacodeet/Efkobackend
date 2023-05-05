@@ -5,7 +5,7 @@ exports.registerAdmin = async (req, res) => {
   try {
     const { email, password, name } = req.body;
 
-    const existingAdmin = await Admin.exists({ email });
+    const existingAdmin = await Admin.findOne({ email });
     if (existingAdmin) {
       return res.status(400).json({ message: 'Admin already exists' });
     }
@@ -52,13 +52,8 @@ exports.loginAdmin = async (req, res) => {
 
 exports.logoutAdmin = async (req, res) => {
   try {
-    req.session.destroy((err) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).json({ message: 'Server error' });
-      }
-      res.status(200).json({ message: 'Logout successful' });
-    });
+    req.session.destroy();
+    res.status(200).json({ message: 'Logout successful' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error' });

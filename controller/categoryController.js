@@ -1,79 +1,94 @@
-const Category = require('../model/categoryModel');
-
 // Create a new category
-exports.createCategory = (req, res) => {
-  const { name, description } = req.body;
+exports.createCategory = async (req, res) => {
+  try {
+    const { name, description } = req.body;
 
-  const category = new Category({
-    name,
-    description,
-  });
-
-  category.save()
-    .then((createdCategory) => {
-      res.status(201).json(createdCategory);
-    })
-    .catch((error) => {
-      res.status(500).json({ error: 'Failed to create category' });
+    const category = new Category({
+      name,
+      description,
     });
+
+    const createdCategory = await category.save();
+    res.status(201).json(createdCategory);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to create category' });
+  }
 };
 
-// Get all categories
-exports.getAllCategories = (req, res) => {
-  Category.find()
-    .then((categories) => {
-      res.json(categories);
-    })
-    .catch((error) => {
-      res.status(500).json({ error: 'Failed to fetch categories' });
-    });
+// Get all categories with pagination
+exports.getAllCategories = async (req, res) => {
+  try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+
+    const startIndex = (page - 1) * limit;
+    const endIndex = page * limit;
+
+    const total = await Category.countDocuments();
+
+    const pagination = {
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+      totalItems: total,
+    };
+
+    const categories = await Category.find().skip(startIndex).limit(limit);
+
+    res.status(200).json({ categories, pagination });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
 };
+
 
 // Get a specific category by ID
-exports.getCategoryById = (req, res) => {
-  const categoryId = req.params.categoryId;
+exports.getCategoryById = async (req, res) => {
+  try {
+    const categoryId = req.params.categoryId;
 
-  Category.findById(categoryId)
-    .then((category) => {
-      if (!category) {
-        return res.status(404).json({ error: 'Category not found' });
-      }
-      res.json(category);
-    })
-    .catch((error) => {
-      res.status(500).json({ error: 'Failed to fetch category' });
-    });
+    const category = await Category.findById(categoryId);
+    if (!category) {
+      return res.status(404).json({ error: 'Category not found' });
+    }
+    res.json(category);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch category' });
+  }
 };
 
 // Update a category
-exports.updateCategory = (req, res) => {
-  const categoryId = req.params.categoryId;
-  const { name, description } = req.body;
+exports.updateCategory = async (req, res) => {
+  try {
+    const categoryId = req.params.categoryId;
+    const { name, description } = req.body;
 
-  Category.findByIdAndUpdate(categoryId, { name, description }, { new: true })
-    .then((updatedCategory) => {
-      if (!updatedCategory) {
-        return res.status(404).json({ error: 'Category not found' });
-      }
-      res.json(updatedCategory);
-    })
-    .catch((error) => {
-      res.status(500).json({ error: 'Failed to update category' });
-    });
+    const updatedCategory = await Category.findByIdAndUpdate(
+      categoryId,
+      { name, description },
+      { new: true }
+    );
+    if (!updatedCategory) {
+      return res.status(404).json({ error: 'Category not found' });
+    }
+    res.json(updatedCategory);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to update category' });
+  }
 };
 
 // Delete a category
-exports.deleteCategory = (req, res) => {
-  const categoryId = req.params.categoryId;
+exports.deleteCategory = async (req, res) => {
+  try {
+    const categoryId = req.params.categoryId;
 
-  Category.findByIdAndDelete(categoryId)
-    .then((deletedCategory) => {
-      if (!deletedCategory) {
-        return res.status(404).json({ error: 'Category not found' });
-      }
-      res.json({ message: 'Category deleted successfully' });
-    })
-    .catch((error) => {
-      res.status(500).json({ error: 'Failed to delete category' });
-    });
+    const deletedCategory = await Category.findByIdAndDelete(categoryId);
+    if (!deletedCategory) {
+      return res.status(404).json({ error: 'Category not found' });
+    }
+    res.json({ message: 'Category deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to delete category' });
+  }
 };

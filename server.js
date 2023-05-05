@@ -22,9 +22,9 @@ mongoose
     }
   )
   .then(() => {
-    //console.log("Db connection successful! ..........");
+    console.log("Db connection successful! ..........");
   });
 
 app.listen(8000, () => {
-  //console.log("the server is running........");
+  console.log("the server is running........");
 });

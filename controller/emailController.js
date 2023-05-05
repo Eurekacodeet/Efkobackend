@@ -28,7 +28,7 @@ imap.connect();
 
 // event handlers for imap connection
 imap.once('ready', () => {
-  //console.log('IMAP connection ready');
+  console.log('IMAP connection ready');
 });
 
 imap.once('error', (error) => {

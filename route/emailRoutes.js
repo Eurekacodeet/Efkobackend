@@ -7,7 +7,7 @@ const router = express.Router();
 router.post('/send', emailController.sendEmail);
 router.post('/sendFromClient', emailController.sendEmailFromClient);
 router.get('/viewInbox', emailController.viewEmails);
-router.get('/viewSent', emailController.fetchEmails);
+// router.get('/viewSent', emailController.fetchEmails);
 
 
 

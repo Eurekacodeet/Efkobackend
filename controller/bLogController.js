@@ -4,18 +4,20 @@ const Blog = require('../model/blogModel');
 exports.createBlog = async (req, res) => {
   try {
     const { title, description, category } = req.body;
-    const imageSrc = req.file ? req.file.path : undefined;
+    //console.log("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLM")
+    const imageSrc = req.file ? req.file.path : undefined; // add this line to get the path of the uploaded image file
+    //console.log("qwertyuiop")
 
     const newBlog = new Blog({
-      title,
-      description,
-      category,
-      imageSrc,
+      title, description, category, imageSrc
     });
+    //console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
 
-    const savedBlog = await newBlog.save();
+    await newBlog.save();
+    //console.log("1111111111111111111111111111111111111")
+    //console.log(newBlog)
 
-    res.status(201).json(savedBlog);
+    res.status(201).json(newBlog);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error' });
@@ -26,46 +28,28 @@ exports.createBlog = async (req, res) => {
 exports.updateBlogById = async (req, res) => {
   try {
     const { title, description, category } = req.body;
+    //console.log(title, description, category);
     const imageSrc = req.file ? req.file.path : undefined;
-
-    const updatedBlog = await Blog.findByIdAndUpdate(
+    //console.log(imageSrc);
+    const newBlog = await Blog.findByIdAndUpdate(
       req.params.id,
       { title, description, category, imageSrc },
       { new: true }
     );
-
-    if (!updatedBlog) {
+    if (!newBlog) {
       return res.status(404).json({ message: 'Blog not found' });
     }
-
-    res.status(200).json(updatedBlog);
+    res.status(200).json(newBlog);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error' });
   }
 };
-
-// Get all Blogs with pagination
+// Get all Blogs
 exports.getAllBlogs = async (req, res) => {
   try {
-    const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 10;
-
-    const startIndex = (page - 1) * limit;
-
-    const [blogs, total] = await Promise.all([
-      Blog.find().skip(startIndex).limit(limit),
-      Blog.countDocuments(),
-    ]);
-
-    const pagination = {
-      page,
-      limit,
-      totalPages: Math.ceil(total / limit),
-      totalItems: total,
-    };
-
-    res.status(200).json({ blogs, pagination });
+    const newBlog = await Blog.find();
+    res.status(200).json(newBlog);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error' });
@@ -75,28 +59,25 @@ exports.getAllBlogs = async (req, res) => {
 // Get single Blog by ID
 exports.getBlogById = async (req, res) => {
   try {
-    const blog = await Blog.findById(req.params.id);
-
-    if (!blog) {
+    const newBlog = await Blog.findById(req.params.id);
+    if (!newBlog) {
       return res.status(404).json({ message: 'Blog not found' });
     }
-
-    res.status(200).json(blog);
+    res.status(200).json(newBlog);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error' });
   }
 };
 
+
 // Delete Blog by ID
 exports.deleteBlogById = async (req, res) => {
   try {
-    const deletedBlog = await Blog.findByIdAndDelete(req.params.id);
-
-    if (!deletedBlog) {
+    const newBlog = await Blog.findByIdAndDelete(req.params.id);
+    if (!newBlog) {
       return res.status(404).json({ message: 'Blog not found' });
     }
-
     res.status(200).json({ message: 'Blog deleted successfully' });
   } catch (error) {
     console.error(error);

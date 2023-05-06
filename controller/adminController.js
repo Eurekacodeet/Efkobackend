@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs');
-const Admin = require('../models/adminModel');
+const Admin = require('../model/adminModel');
 
 exports.registerAdmin = async (req, res) => {
   try {
@@ -41,14 +41,23 @@ exports.loginAdmin = async (req, res) => {
       return res.status(400).json({ message: 'Invalid email or password' });
     }
 
-    req.session.adminId = existingAdmin._id;
+    // Store additional admin data in the session
+    req.session.adminData = {
+      id:existingAdmin._id,
+      email: existingAdmin.email,
+      name: existingAdmin.name,
+    };
 
-    res.status(200).json({ message: 'Login successful' });
+    // Store the admin ID in the session as well
+    // req.session.adminId = existingAdmin._id;
+
+    res.status(200).json({ message: 'Login successful', adminData: req.session.adminData });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error' });
   }
 };
+
 
 exports.logoutAdmin = async (req, res) => {
   try {

@@ -11,7 +11,7 @@ const emailRoutes = require('./route/emailRoutes');
 const adminRoutes = require('./route/adminRoutes');
 const adminDashboardStatsCountRoute=require('./route/adminDashboardStatsCountRoute')
 const store = new MongoDBStore({
-  uri: 'mongodb://0.0.0.0:27017/efko',
+  uri: 'mongodb+srv://kirato:nutcases123@cluster0.jw8vu.mongodb.net/efko',
   collection: 'sessions',
 });
 

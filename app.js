@@ -33,7 +33,6 @@ app.use('/blog', blogRoutes);
 app.use('/blog/category', categoryRoutes);
 app.use('/project', projectsRoutes);
 app.use('/email', emailRoutes);
-app.use('/admin', adminRoutes);
 app.use('/count', adminDashboardStatsCountRoute);
 
 app.use(bodyParser.urlencoded({ extended: true }));

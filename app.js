@@ -9,7 +9,7 @@ const categoryRoutes = require('./route/categoryRoutes');
 const projectsRoutes = require('./route/projectsRoutes');
 const emailRoutes = require('./route/emailRoutes');
 const adminRoutes = require('./route/adminRoutes');
-
+const adminDashboardStatsCountRoute=require('./route/adminDashboardStatsCountRoute')
 const store = new MongoDBStore({
   uri: 'mongodb://0.0.0.0:27017/efko',
   collection: 'sessions',
@@ -34,6 +34,7 @@ app.use('/blog/category', categoryRoutes);
 app.use('/project', projectsRoutes);
 app.use('/email', emailRoutes);
 app.use('/admin', adminRoutes);
+app.use('/count', adminDashboardStatsCountRoute);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
